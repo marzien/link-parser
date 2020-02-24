@@ -1,9 +1,13 @@
 const express = require("express")
 const app = express()
-const port = process.env.PORT || 5001
+const PORT = process.env.PORT || 5001
+const ENV = process.env.NODE_ENV || "Development"
 
 app.use(express.json({ extended: false }))
 
 app.use("/api/parser", require("./backend/routes/parser"))
 
-app.listen(port, () => console.log(`Server started on port ${port}`))
+app.listen(PORT, (err) => {
+  if (err) console.error("❌ Unable to connect the server: ", err)
+  console.log(`🌍 Server listening on port ${PORT} - ${ENV} environment`)
+})
