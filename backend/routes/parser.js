@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
-
 const request = require('request');
 
-req = request.defaults({
-	jar: true,                 // save cookies to jar
-	rejectUnauthorized: false, 
-	followAllRedirects: true   // allow redirections
-});
+const getTitle = require('../services/title');
+const getHeadings = require('../services/headings');
+const getPictures = require('../services/pictures');
+const getLinks = require('../services/links');
+
+// req = request.defaults({
+// 	jar: true,                 // save cookies to jar
+// 	rejectUnauthorized: false, 
+// 	followAllRedirects: true   // allow redirections
+// });
 
 router.get('/', (req, res) => {
     const result = {
@@ -28,11 +32,19 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    let URLlink = req.body.url;
-    if(validURL(URLlink)) {
-        console.log(('Analyzing valid URL: '+URLlink))
+    let { url } = req.body;
+    if(validURL(url)) {
+        console.log(('Analyzing valid URL: '+ url))
 
-        const result = {
+        Promise.all([ 
+            getTitle(url), 
+            getHeadings(url), 
+            getPictures(url), 
+            getLinks(url) ])
+            .then(res => console.log(res))
+            .catch(err => console.log('ERROR: ', err));
+
+        const result = {        // Bulky data updating data after POSt request
             version: "HTML5",
             title: "hello world",
             headingNumber: 10,
