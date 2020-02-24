@@ -1,7 +1,7 @@
-import React from 'react';
-import Result from './components/Result';
-import UrlForm from './components/UrlForm';
-import './App.css';
+import React from "react"
+import Result from "./components/Result"
+import UrlForm from "./components/UrlForm"
+import "./App.css"
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <UrlForm />
       <Result />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
