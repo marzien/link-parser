@@ -20,7 +20,7 @@ class UrlForm extends Component {
     axios
       .post("/api/parser", data)
       .then((res) => {
-        console.log("data back from server: ", res.data)
+        this.props.getData(res.data)
       })
       .catch((err) => console.log("ERROR: can't post URL"))
 

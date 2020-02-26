@@ -5,36 +5,23 @@ class Result extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      results: {}
+      result: {}
     }
   }
 
   componentDidMount() {
     fetch("/api/parser")
       .then((res) => res.json())
-      .then((results) =>
-        this.setState({ results }, () => console.log("Starter data.."))
-      )
+      .then((results) => this.setState({ result: results }))
   }
 
-  // updating state from server
-  componentWillMount() {
-    fetch("/api/parser")
-      .then((res) => res.json())
-      .then((results) =>
-        this.setState({ results }, () => console.log("After sending URL.."))
-      )
-      .catch((error) => {
-        console.error(error)
+  componentWillReceiveProps(nextProps) {
+    if (this.state.result !== nextProps.result) {
+      this.setState({
+        result: nextProps.result
       })
+    }
   }
-
-  componentDidUpdate(nextProps, prevState) {
-    console.log("componentDidUpdate")
-    console.log(this.state.results)
-  }
-
-  // https://stackoverflow.com/questions/56453521/what-react-lifecycle-component-to-use-to-update-state-after-an-axios-post
 
   render() {
     const {
@@ -49,7 +36,7 @@ class Result extends Component {
       inaccesibleLink,
       loadingTime,
       httpStatus
-    } = this.state.results
+    } = this.state.result
 
     return (
       <div>

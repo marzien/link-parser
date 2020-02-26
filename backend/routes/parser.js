@@ -7,27 +7,20 @@ const getHeadings = require("../services/headings")
 const getPictures = require("../services/pictures")
 const getLinks = require("../services/links")
 
-// req = request.defaults({
-// 	jar: true,                 // save cookies to jar
-// 	rejectUnauthorized: false,
-// 	followAllRedirects: true   // allow redirections
-// });
-
+const result = {
+  version: "",
+  title: "",
+  headingNumber: 0,
+  headingLevel: "",
+  pictureNumber: 0,
+  largestPicture: "",
+  linksIntCount: 0,
+  linksExtCount: 0,
+  inaccesibleLink: 0,
+  loadingTime: 0,
+  httpStatus: "200"
+}
 router.get("/", (req, res) => {
-  const result = {
-    version: "",
-    title: "",
-    headingNumber: 0,
-    headingLevel: "",
-    pictureNumber: 0,
-    largestPicture: "",
-    linksIntCount: 0,
-    linksExtCount: 0,
-    inaccesibleLink: 0,
-    loadingTime: 0,
-    httpStatus: "200"
-  }
-
   res.json(result)
 })
 

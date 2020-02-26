@@ -1,13 +1,11 @@
 import React from "react"
-import Result from "./components/Result"
-import UrlForm from "./components/UrlForm"
+import LinkParser from "./components/LinkParser"
 import "./App.css"
 
 function App() {
   return (
     <div className="App">
-      <UrlForm />
-      <Result />
+      <LinkParser />
     </div>
   )
 }
