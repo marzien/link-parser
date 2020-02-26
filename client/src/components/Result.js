@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import "./Result.css"
 
 class Result extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       results: {}
     }
