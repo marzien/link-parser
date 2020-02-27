@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const request = require("request")
 
+const getHtmlVersion = require("../services/html-version")
 const getTitle = require("../services/title")
 const getHeadings = require("../services/headings")
 const getPictures = require("../services/pictures")
