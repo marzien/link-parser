@@ -2,13 +2,14 @@ const express = require("express")
 const router = express.Router()
 const request = require("request")
 
+const checkUrl = require("../services/url-validator")
 const getHtmlVersion = require("../services/html-version")
 const getTitle = require("../services/title")
 const getHeadings = require("../services/headings")
 const getPictures = require("../services/pictures")
 const getLinks = require("../services/links")
 
-const result = {
+let result = {
   version: "",
   title: "",
   headingNumber: 0,
@@ -27,44 +28,44 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   let { url } = req.body
-  if (validURL(url)) {
-    console.log("Analyzing valid URL: " + url)
 
-    Promise.all([getTitle(url), getHeadings(url), getPictures(url), getLinks(url)])
-      .then((res) => console.log(res))
-      .catch((err) => console.log("ERROR: ", err))
+  // validating URL with regex and if valid get reponse code
+  checkUrl(url)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
 
-    const result = {
-      // Bulky data updating data after POSt request
-      version: "HTML5",
-      title: "hello world",
-      headingNumber: 10,
-      headingLevel: "H1",
-      pictureNumber: 5,
-      largestPicture: "picture.jpg",
-      linksIntCount: 3,
-      linksExtCount: 1,
-      inaccesibleLink: 1,
-      loadingTime: 120,
-      httpStatus: "200"
-    }
-    res.json(result)
-  } else {
-    console.log("Not valid URL link")
-  }
+  // TODO: inside promise start timer
+  // solutions for URL
+  Promise.all([
+    getHtmlVersion(url),
+    getTitle(url),
+    getHeadings(url),
+    getPictures(url),
+    getLinks(url)
+  ])
+    .then((parserResult) => {})
+    .catch((err) => console.log("ERROR: ", err))
+
+  // TODO: inside promise end timer
+
+  // TODO: send data to react front res.json(result)
+
+  // Bulky data updating data after POSt request
+  // const result = {
+  //   version: "HTML5",
+  //   title: "hello world",
+  //   headingNumber: 10,
+  //   headingLevel: "H1",
+  //   pictureNumber: 5,
+  //   largestPicture: "picture.jpg",
+  //   linksIntCount: 3,
+  //   linksExtCount: 1,
+  //   inaccesibleLink: 1,
+  //   loadingTime: 120,
+  //   httpStatus: "200"
+  // }
+  console.log(result)
+  res.json(result)
 })
-
-validURL = (str) => {
-  var pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-    "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-    "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  ) // fragment locator
-  return !!pattern.test(str)
-}
 
 module.exports = router
