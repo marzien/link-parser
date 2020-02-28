@@ -1,10 +1,7 @@
-const https = require("https")
+// https://httpstat.us/500
+const fetch = require("node-fetch")
 
-// export async function getTitle(url) {
-module.exports = async function checkUrl(url) {
-  // 1. URL validation with regex.
-  // 2. Geting link response (200, 400, 500)
-
+https: module.exports = async function checkUrl(url) {
   const pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
     "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
@@ -13,29 +10,11 @@ module.exports = async function checkUrl(url) {
     "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
       "(\\#[-a-z\\d_]*)?$",
     "i"
-  ) // fragment locator
+  )
 
-  let validUrl = new Promise((res, rej) => {
-    if (pattern.test(url)) {
-      res()
-    } else {
-      rej()
-    }
-  })
-
-  validUrl
-    .then(() => {
-      return https
-        .get(url, (res) => {
-          return res.statusCode
-        })
-        .on("error", (err) => {
-          console.error(err)
-        })
-    })
-    .catch((err) => console.log("Not valid URL address: ", err))
-  // .then((res) => console.log("Status code: ", res.statusCode)) // how return code to parser.js
-
-  let bulkyReturn = 200 // test value, need to fix return
-  return bulkyReturn
+  if (pattern.test(url)) {
+    return (await fetch(url)).status
+  } else {
+    console.log("ERROR: not valid given URL")
+  }
 }
