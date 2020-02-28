@@ -29,26 +29,32 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   let { url } = req.body
 
-  // validating URL with regex and if valid get reponse code
   checkUrl(url)
-    .then((res) => console.log(res))
+    .then((res) => {
+      return [{ urlResponse: res }, { start: new Date() }]
+    })
+    // .then((res) => console.log(res))
     .catch((err) => console.log(err))
+    .then((validationRes) => {
+      let parserResult = Promise.all([
+        getHtmlVersion(url),
+        getTitle(url),
+        getHeadings(url),
+        getPictures(url),
+        getLinks(url)
+      ])
+      // .then((parserResult) => {
+      //   console.log("parserResult: ", parserResult)
+      // })
+      // .catch((err) => console.log("ERROR: ", err))
 
-  // TODO: inside promise start timer
-  // solutions for URL
-  Promise.all([
-    getHtmlVersion(url),
-    getTitle(url),
-    getHeadings(url),
-    getPictures(url),
-    getLinks(url)
-  ])
-    .then((parserResult) => {})
-    .catch((err) => console.log("ERROR: ", err))
-
-  // TODO: inside promise end timer
-
-  // TODO: send data to react front res.json(result)
+      return validationRes.concat(parserResult)
+    })
+    .then((res) => console.log(res))
+  // .then((res) => {
+  //   return res.push({ end: new Date() })
+  // })
+  // .then((res) => console.log(res))
 
   // Bulky data updating data after POSt request
   // const result = {
