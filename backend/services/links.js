@@ -12,7 +12,7 @@ req = request.defaults({
 // export async function getTitle(url) {
 module.exports = async function getLinks(siteUrl) {
   const html = await axios.get(siteUrl)
-  const $ = await cheerio.load(html.data)
+  const $ = cheerio.load(html.data)
 
   internalLinks = 0
   externalLinks = 0

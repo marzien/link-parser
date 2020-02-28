@@ -8,7 +8,7 @@ const sizeOf = require("image-size")
 // export async function getTitle(url) {
 module.exports = async function getPictures(url) {
   const html = await axios.get(url)
-  const $ = await cheerio.load(html.data)
+  const $ = cheerio.load(html.data)
 
   imgCount = 0
   imgBigest = 0
