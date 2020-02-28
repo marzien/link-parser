@@ -70,8 +70,6 @@ router.post("/", (req, res) => {
   //   loadingTime: 120,
   //   httpStatus: "200"
   // }
-  console.log(result)
-  res.json(result)
 })
 
 module.exports = router
