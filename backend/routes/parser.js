@@ -33,26 +33,26 @@ router.post("/", (req, res) => {
     .then((res) => {
       return [{ urlResponse: res }, { start: new Date() }]
     })
-    // .then((res) => console.log(res))
-    .catch((err) => console.log(err))
-    .then((validationRes) => {
-      let parserResult = Promise.all([
-        getHtmlVersion(url),
-        getTitle(url),
-        getHeadings(url),
-        getPictures(url),
-        getLinks(url)
-      ])
-      // .then((parserResult) => {
-      //   console.log("parserResult: ", parserResult)
-      // })
-      // .catch((err) => console.log("ERROR: ", err))
-
-      return validationRes.concat(parserResult)
-    })
     .then((res) => console.log(res))
+  // .catch((err) => console.log(err))
+  // .then(async (validationRes) => {
+  //   let parserResult = await Promise.all([
+  //     getHtmlVersion(url),
+  //     getTitle(url),
+  //     getHeadings(url),
+  //     getPictures(url),
+  //     getLinks(url)
+  //   ])
+  //     .then((parserResult) => {
+  //       return parserResult
+  //     })
+  //     .catch((err) => console.log("ERROR: ", err))
+  //   return validationRes.concat(parserResult)
+  // })
+  // // .then((res) => console.log(res))
   // .then((res) => {
-  //   return res.push({ end: new Date() })
+  //   // console.log(res.concat([{ end: new Date() }]))
+  //   return res.concat({ end: new Date() })
   // })
   // .then((res) => console.log(res))
 
