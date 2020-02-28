@@ -4,7 +4,7 @@ const axios = require("axios")
 
 const html_5 = /!doctype html/
 const html_old = /!doctype html public/
-const html_401_trict = /html 4.01/
+const html_401_strict = /html 4.01/
 const html_401_transitional = /html 4.01 transitional/
 const html_401_frameset = /html 4.01 frameset/
 const xhtml_10_strict = /xhtml 1.0 strict/
@@ -18,7 +18,7 @@ module.exports = async function getHtmlVersion(url) {
 
   if (html_5.test(htmlContent)) {
     return "HTML 5"
-  } else if (html_old.test(htmlContent) && html_401_trict.test()) {
+  } else if (html_old.test(htmlContent) && html_401_strict.test()) {
     return "HTML 4.01 Strict"
   } else if (html_old.test(htmlContent) && html_401_transitional.test()) {
     return "HTML 4.01 Transitional"
