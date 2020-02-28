@@ -23,7 +23,7 @@ module.exports = async function checkUrl(url) {
     }
   })
 
-  return validUrl
+  validUrl
     .then(() => {
       return https
         .get(url, (res) => {
@@ -34,7 +34,8 @@ module.exports = async function checkUrl(url) {
         })
     })
     .catch((err) => console.log("Not valid URL address: ", err))
-    .then((res) => console.log("Status code: ", res.statusCode)) // how return code to parser.js
+  // .then((res) => console.log("Status code: ", res.statusCode)) // how return code to parser.js
 
-  return "200"
+  let bulkyReturn = 200 // test value, need to fix return
+  return bulkyReturn
 }
