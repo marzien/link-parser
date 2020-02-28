@@ -57,13 +57,12 @@ isURLBroken = (fullyQualifiedURL) => {
 
       // let result = $('#results p strong').text()
       let result = $(".non-document-error p strong").text()
-      // console.log(result);
       if (result == "IO Error") {
         isBroken = true
-        console.log("Site link not working")
+        // console.log("Site link not working")
         return isBroken
       } else {
-        console.log("Site link working")
+        // console.log("Site link working")
         isBroken = false
         return isBroken
       }

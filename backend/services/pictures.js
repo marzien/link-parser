@@ -48,7 +48,7 @@ const imageSize = (siteUrl, imgUrl) => {
         .on("end", function() {
           var buffer = Buffer.concat(chunks)
           let imageDimensions = sizeOf(buffer)
-          console.log(imageDimensions.height * imageDimensions.width)
+          // console.log(imageDimensions.height * imageDimensions.width) // right value
         })
       return imageSize
     })
@@ -67,6 +67,6 @@ const imageSize = (siteUrl, imgUrl) => {
         })
     })
   }
-  console.log(imageSize)
+  // console.log(imageSize) // 0
   return imageSize
 }
