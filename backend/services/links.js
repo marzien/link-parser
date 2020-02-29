@@ -6,38 +6,31 @@ module.exports = async function getLinks(siteUrl) {
   const html = await axios.get(siteUrl)
   const $ = cheerio.load(html.data)
 
-  internalLinks = []
-  externalLinks = []
+  const links = Object.values($("a"))
+    .map((el) => {
+      return $(el).attr("href")
+    })
+    .filter((it) => it)
 
-  $("a").each((i, el) => {
-    const item = $(el).attr("href") // all links
-    // console.log(item)
-
-    if (item.substring(0, 1) === "#" || item === "index.html") {
-      let status
-      let fullLink = siteUrl + "/" + item
-      fetch(fullLink).then((res) => {
-        // console.log(res.status)
-        status = res.status
-        // return res.json()
-        console.log({ fullLink, status })
-        externalLinks.push({ internalLink: fullLink, status })
-      })
-    } else if (item.substring(0, 4) === "http" || item.substring(0, 4) === "wwww") {
-      let status
-      fetch(item).then((res) => {
-        // console.log(res.status)
-        status = res.status
-        // return res.json()
-        console.log({ item, status })
-        externalLinks.push({ externalLink: item, status })
-      })
-      // console.log(status)
-    } else if (item.substring(0, 6) === "mailto") {
-      console.log("email link")
-    }
+  const linkArr = Promise.all(
+    links.map((url) => {
+      return fetch(
+        url.includes("http")
+          ? url
+          : url.includes("index.html")
+          ? siteUrl + "/" + url
+          : siteUrl + url
+      )
+        .then((res) => {
+          return { url: res.url, status: res.status }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    })
+  ).then((data) => {
+    return data
   })
-  let links = [externalLinks, externalLinks]
-  console.log(externalLinks)
-  return links
+  // console.log("await linkArr", await linkArr)
+  return await linkArr
 }
