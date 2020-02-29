@@ -17,7 +17,7 @@ class Result extends Component {
       .then((results) => this.setState({ result: results }))
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.state.result !== nextProps.result) {
       this.setState({
         result: nextProps.result
