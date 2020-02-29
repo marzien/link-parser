@@ -9,18 +9,20 @@ const getHeadings = require("../services/headings")
 const getPictures = require("../services/pictures")
 const getLinks = require("../services/links")
 
-let result = {
-  version: "",
-  title: "",
-  headingNumber: 0,
-  headingLevel: "",
-  pictureNumber: 0,
-  largestPicture: "",
-  linksIntCount: 0,
-  linksExtCount: 0,
-  inaccesibleLink: 0,
-  loadingTime: 0,
-  httpStatus: "200"
+const result = {
+  urlResponse: "-",
+  title: "-",
+  htmlVersion: "-",
+  h1: 0,
+  h2: 0,
+  h3: 0,
+  h4: 0,
+  h5: 0,
+  h6: 0,
+  images: [],
+  links: [],
+  scriptStart: {},
+  scriptEnd: {}
 }
 router.get("/", (req, res) => {
   res.json(result)
@@ -31,45 +33,63 @@ router.post("/", (req, res) => {
 
   checkUrl(url)
     .then((res) => {
-      return [{ urlResponse: res }, { start: new Date() }]
+      return [{ urlResponse: res, start: new Date() }]
+    })
+    // .then((res) => console.log(res))
+    .catch((err) => console.log(err))
+    .then(async (validationRes) => {
+      let parserResult = await Promise.all([
+        getHtmlVersion(url),
+        getTitle(url),
+        getHeadings(url),
+        getPictures(url),
+        getLinks(url)
+      ])
+        .then((parserResult) => {
+          return parserResult
+        })
+        .catch((err) => console.log("ERROR: ", err))
+      return validationRes.concat(parserResult)
+    })
+    // .then((res) => console.log(res))
+    .then((res) => {
+      // console.log(res.concat([{ end: new Date() }]))
+      return res.concat({ end: new Date() })
     })
     .then((res) => console.log(res))
-  // .catch((err) => console.log(err))
-  // .then(async (validationRes) => {
-  //   let parserResult = await Promise.all([
-  //     getHtmlVersion(url),
-  //     getTitle(url),
-  //     getHeadings(url),
-  //     getPictures(url),
-  //     getLinks(url)
-  //   ])
-  //     .then((parserResult) => {
-  //       return parserResult
-  //     })
-  //     .catch((err) => console.log("ERROR: ", err))
-  //   return validationRes.concat(parserResult)
-  // })
-  // // .then((res) => console.log(res))
-  // .then((res) => {
-  //   // console.log(res.concat([{ end: new Date() }]))
-  //   return res.concat({ end: new Date() })
-  // })
-  // .then((res) => console.log(res))
 
-  // Bulky data updating data after POSt request
-  // const result = {
-  //   version: "HTML5",
-  //   title: "hello world",
-  //   headingNumber: 10,
-  //   headingLevel: "H1",
-  //   pictureNumber: 5,
-  //   largestPicture: "picture.jpg",
-  //   linksIntCount: 3,
-  //   linksExtCount: 1,
-  //   inaccesibleLink: 1,
-  //   loadingTime: 120,
-  //   httpStatus: "200"
-  // }
+  // fake data to frontend
+  const result = {
+    urlResponse: 200,
+    title: "My Super Title",
+    htmlVersion: "HTML5",
+    h1: 1,
+    h2: 12,
+    h3: 10,
+    h4: 0,
+    h5: 0,
+    h6: 0,
+    images: [
+      { img: "assets/images/mongodb.jpg", imgSizePixel: 2000 },
+      { img: "assets/images/angular-galery.png", imgSizePixel: 3000 }
+    ],
+    links: [
+      { item: "https://www.codewars.com/users/marzien", status: 200 },
+      { item: "http://mariusdev.tech/", status: 200 },
+      { item: "https://github.com/marzien/nfq-shopping-cart", status: 200 },
+      { item: "https://www.linkedin.com/in/marius-zienius/", status: 999 },
+      { item: "https://github.com/marzien", status: 200 }
+    ],
+    scriptStart: {
+      __type: "Date",
+      iso: "2017-08-22T06:11:00.000Z"
+    },
+    scriptEnd: {
+      __type: "Date",
+      iso: "2017-08-22T06:11:00.000Z"
+    }
+  }
+  res.json(result)
 })
 
 module.exports = router
