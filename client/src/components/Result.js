@@ -64,10 +64,11 @@ class Result extends Component {
               ))}
           </li>
           <li>
+            Site links:
             {links &&
               links.map((res, i) => (
                 <div key={i}>
-                  {res.item}: {res.status}
+                  {res.url}: {res.status}
                 </div>
               ))}
           </li>
