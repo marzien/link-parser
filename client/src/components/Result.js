@@ -53,12 +53,23 @@ class Result extends Component {
             Headings: <div>H1-{h1}</div> <div>H2-{h2}</div> <div>H3-{h3}</div>{" "}
             <div>H4-{h4}</div> <div>H5-{h5}</div> <div>H6-{h6}</div>
           </li>
-          {this.state.result.images &&
-            this.state.result.images.map((res, i) => (
-              <div key={i}>
-                {res.img}: {res.imgSizePixel}
-              </div>
-            ))}
+          <li>
+            {images &&
+              images.map((res, i) => (
+                <div key={i}>
+                  {res.img}: {res.imgSizePixel}
+                </div>
+              ))}
+          </li>
+          <li>
+            {links &&
+              links.map((res, i) => (
+                <div key={i}>
+                  {res.item}: {res.status}
+                </div>
+              ))}
+          </li>
+          {/* <li>{scriptStart.iso}</li> */}
         </ul>
       </div>
     )
