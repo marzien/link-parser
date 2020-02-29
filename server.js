@@ -1,7 +1,11 @@
 const express = require("express")
 const app = express()
+const path = require("path")
 const PORT = process.env.PORT || 5000
 const ENV = process.env.NODE_ENV || "Development"
+
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "client/build")))
 
 app.use(express.json({ extended: false }))
 
