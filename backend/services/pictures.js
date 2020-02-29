@@ -1,18 +1,28 @@
+const axios = require("axios")
 const cheerio = require("cheerio")
 const requestImageSize = require("request-image-size")
 
-module.exports = async function getPictures(url) {
-  const html = await axios.get(url)
+module.exports = async function getPictures(siteUrl) {
+  const html = await axios.get(siteUrl)
   const $ = cheerio.load(html.data)
 
-  $("img").each(async (i, el) => {
-    const image = $(el).attr("src")
+  const images = Object.values($("img"))
+    .map((el) => {
+      return $(el).attr("src")
+    })
+    .filter((it) => it)
 
-    let imageUrl = url + "/" + image
-    let imageSizePixel = await requestImageSize(imageUrl)
-      .then((size) => size)
-      .catch((err) => console.error(err))
-    console.log("imageSizePixel", imageSizePixel, url + "/" + image)
-    return { imageUrl, imageSize: imageSizePixel.downloaded }
+  const imageArr = Promise.all(
+    images.map((image) => {
+      let imageUrl = siteUrl + "/" + image
+      return requestImageSize(imageUrl)
+        .then((res) => {
+          return { img: imageUrl, size: res.downloaded }
+        })
+        .catch((err) => `Error: can't get image: {imageUrl} size `, err)
+    })
+  ).then((data) => {
+    return data
   })
+  return await imageArr
 }
