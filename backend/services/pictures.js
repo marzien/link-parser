@@ -19,10 +19,12 @@ module.exports = async function getPictures(siteUrl) {
         .then((res) => {
           return { img: imageUrl, size: res.downloaded }
         })
-        .catch((err) => `Error: can't get image: {imageUrl} size `, err)
+        .catch((err) => (`Error: can't get image: {imageUrl} size `, err))
     })
-  ).then((data) => {
-    return data
-  })
+  )
+    .then((data) => {
+      return data
+    })
+    .catch((err) => (`Error: can't get image: {imageUrl} size `, err))
   return await imageArr
 }
