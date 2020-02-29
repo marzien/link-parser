@@ -13,8 +13,14 @@ https: module.exports = async function checkUrl(url) {
   )
 
   if (pattern.test(url)) {
-    return (await fetch(url)).status
+    if ((await fetch(url)).status === 200) {
+      return 200
+    } else {
+      throw new Error(
+        "ERROR: Can't get right main URL response. Site should respond with code: 200"
+      )
+    }
   } else {
-    console.log("ERROR: not valid given URL")
+    throw new Error("ERROR: not valid URL")
   }
 }
