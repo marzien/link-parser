@@ -3,7 +3,7 @@ const cheerio = require("cheerio")
 
 module.exports = async function getHeadings(url) {
   const html = await axios.get(url)
-  const $ = await cheerio.load(html.data)
+  const $ = cheerio.load(html.data)
 
   let data = []
   // return $("title").text();
@@ -39,7 +39,12 @@ module.exports = async function getHeadings(url) {
     h6count += 1
   })
 
-  return [
-    { h1: h1count, h2: h2count, h3: h3count, h4: h4count, h5: h5count, h6: h6count }
-  ]
+  return {
+    h1: h1count,
+    h2: h2count,
+    h3: h3count,
+    h4: h4count,
+    h5: h5count,
+    h6: h6count
+  }
 }

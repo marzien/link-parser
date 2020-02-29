@@ -24,13 +24,14 @@ module.exports = async function getLinks(siteUrl) {
         .then((res) => {
           return { url: res.url, status: res.status }
         })
-        .catch((err) => {
-          console.log(err)
-        })
+        .catch((err) => `Error: can't fetch page link: {url} {err}`)
     })
-  ).then((data) => {
-    return data
-  })
+  )
+    .then((data) => {
+      return data
+    })
+    .catch((err) => `Error: can't fetch page links {err}`)
   // console.log("await linkArr", await linkArr)
+
   return await linkArr
 }

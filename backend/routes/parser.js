@@ -9,7 +9,7 @@ const getHeadings = require("../services/headings")
 const getPictures = require("../services/pictures")
 const getLinks = require("../services/links")
 
-const result = {
+let results = {
   urlResponse: "-",
   title: "-",
   htmlVersion: "-",
@@ -24,19 +24,19 @@ const result = {
   scriptStart: "",
   scriptEnd: ""
 }
+
 router.get("/", (req, res) => {
-  res.json(result)
+  res.json(results)
 })
 
 router.post("/", (req, res) => {
   let { url } = req.body
 
-  checkUrl(url)
+  let results = checkUrl(url)
     .then((res) => {
       return [{ urlResponse: res, start: new Date() }]
     })
-    // .then((res) => console.log(res))
-    .catch((err) => console.log(err))
+    .catch((err) => `Error: havn't pass link checking and start timer: {err}`)
     .then(async (validationRes) => {
       let parserResult = await Promise.all([
         getHtmlVersion(url),
@@ -48,42 +48,34 @@ router.post("/", (req, res) => {
         .then((parserResult) => {
           return parserResult
         })
-        .catch((err) => console.log("ERROR: ", err))
+        .catch((err) => `Error: can't pars link: {err}`)
       return validationRes.concat(parserResult)
     })
-    // .then((res) => console.log(res))
     .then((res) => {
-      // console.log(res.concat([{ end: new Date() }]))
       return res.concat({ end: new Date() })
     })
-    .then((res) => console.log(res))
-
-  // fake data to frontend
-  const result = {
-    urlResponse: 200,
-    title: "My Super Title",
-    htmlVersion: "HTML5",
-    h1: 1,
-    h2: 12,
-    h3: 10,
-    h4: 0,
-    h5: 0,
-    h6: 0,
-    images: [
-      { img: "assets/images/mongodb.jpg", imgSizePixel: 2000 },
-      { img: "assets/images/angular-galery.png", imgSizePixel: 3000 }
-    ],
-    links: [
-      { item: "https://www.codewars.com/users/marzien", status: 200 },
-      { item: "http://mariusdev.tech/", status: 200 },
-      { item: "https://github.com/marzien/nfq-shopping-cart", status: 200 },
-      { item: "https://www.linkedin.com/in/marius-zienius/", status: 999 },
-      { item: "https://github.com/marzien", status: 200 }
-    ],
-    scriptStart: "2020-02-29T16:12:56.888Z",
-    scriptEnd: "2020-02-29T16:12:58.451Z"
-  }
-  res.json(result)
+    .then((res) => {
+      return {
+        urlResponse: res[0].urlResponse,
+        title: res[2],
+        htmlVersion: res[1],
+        h1: res[3].h1,
+        h2: res[3].h2,
+        h3: res[3].h3,
+        h4: res[3].h4,
+        h5: res[3].h5,
+        h6: res[3].h6,
+        images: res[4],
+        links: res[5],
+        scriptStart: res[0].start,
+        scriptEnd: res[6].end
+      }
+    })
+    .catch((err) => `Error: can't form response: {err}`)
+    .then((results) => {
+      res.json(results)
+    })
+    .catch((err) => `Error: can't post data to front: {err}`)
 })
 
 module.exports = router
