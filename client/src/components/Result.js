@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./Result.css"
+import { imageSize } from "image-size"
 
 class Result extends Component {
   constructor(props) {
@@ -24,35 +25,35 @@ class Result extends Component {
   }
 
   render() {
+    console.log(this.state.result)
     const {
-      version,
+      urlResponse,
       title,
-      headingNumber,
-      headingLevel,
-      pictureNumber,
-      largestPicture,
-      linksIntCount,
-      linksExtCount,
-      inaccesibleLink,
-      loadingTime,
-      httpStatus
+      htmlVersion,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      images,
+      links,
+      scriptStart,
+      scriptEnd
     } = this.state.result
 
     return (
       <div>
         <h2>Results</h2>
         <ul>
-          <li key={"version"}>{version}</li>
-          <li key={"title"}>{title}</li>
-          <li key={"heading number"}>{headingNumber}</li>
-          <li key={"headingLevel"}>{headingLevel}</li>
-          <li key={"picture number"}>{pictureNumber}</li>
-          <li key={"largest picture"}>{largestPicture}</li>
-          <li key={"internal links"}>{linksIntCount}</li>
-          <li key={"external links"}>{linksExtCount}</li>
-          <li key={"inaccesible link"}>{inaccesibleLink}</li>
-          <li key={"loading time"}>{loadingTime}</li>
-          <li key={"http status"}>{httpStatus}</li>
+          <li key={"urlResponse"}>URL responsecode: {urlResponse}</li>
+          <li key={"title"}>Title: {title}</li>
+          <li key={"htmlVersion"}>HTML version: {htmlVersion}</li>
+          <li key={"headings"}>
+            Headings: <div>H1-{h1}</div> <div>H2-{h2}</div> <div>H3-{h3}</div>{" "}
+            <div>H4-{h4}</div> <div>H5-{h5}</div> <div>H6-{h6}</div>
+          </li>
+          {/* <li key={"end"}>Execution time: {scriptEnd.toJSON()}</li> */}
         </ul>
       </div>
     )
