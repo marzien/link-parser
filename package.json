@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "simple URL link parser",
   "main": "server.js",
+  "engines": {
+    "node": "12.13.1"
+  },
   "scripts": {
     "client-install": "cd client && npm install",
     "start": "node server.js",
