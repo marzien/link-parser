@@ -25,7 +25,7 @@ class Result extends Component {
   }
 
   render() {
-    console.log(this.state.result)
+    // console.log(this.state.result)
     const {
       urlResponse,
       title,
@@ -53,7 +53,12 @@ class Result extends Component {
             Headings: <div>H1-{h1}</div> <div>H2-{h2}</div> <div>H3-{h3}</div>{" "}
             <div>H4-{h4}</div> <div>H5-{h5}</div> <div>H6-{h6}</div>
           </li>
-          {/* <li key={"end"}>Execution time: {scriptEnd.toJSON()}</li> */}
+          {/* <li key={"images"}>
+            Execution time:{" "}
+            {this.state.result.images.map((res) => (
+              <br>{res}</br>
+            ))}
+          </li> */}
         </ul>
       </div>
     )
