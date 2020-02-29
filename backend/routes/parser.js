@@ -21,8 +21,8 @@ const result = {
   h6: 0,
   images: [],
   links: [],
-  scriptStart: {},
-  scriptEnd: {}
+  scriptStart: "",
+  scriptEnd: ""
 }
 router.get("/", (req, res) => {
   res.json(result)
@@ -80,14 +80,8 @@ router.post("/", (req, res) => {
       { item: "https://www.linkedin.com/in/marius-zienius/", status: 999 },
       { item: "https://github.com/marzien", status: 200 }
     ],
-    scriptStart: {
-      __type: "Date",
-      iso: "2017-08-22T06:11:00.000Z"
-    },
-    scriptEnd: {
-      __type: "Date",
-      iso: "2017-08-22T06:11:00.000Z"
-    }
+    scriptStart: "2020-02-29T16:12:56.888Z",
+    scriptEnd: "2020-02-29T16:12:58.451Z"
   }
   res.json(result)
 })

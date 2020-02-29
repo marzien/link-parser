@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import "./Result.css"
-import { imageSize } from "image-size"
+import moment from "moment"
+// import { imageSize } from "image-size"
 
 class Result extends Component {
   constructor(props) {
@@ -25,7 +26,6 @@ class Result extends Component {
   }
 
   render() {
-    // console.log(this.state.result)
     const {
       urlResponse,
       title,
@@ -41,6 +41,8 @@ class Result extends Component {
       scriptStart,
       scriptEnd
     } = this.state.result
+
+    let executionTime = moment(scriptEnd).toDate() - moment(scriptStart).toDate()
 
     return (
       <div>
@@ -69,7 +71,7 @@ class Result extends Component {
                 </div>
               ))}
           </li>
-          {/* <li>{scriptStart.iso}</li> */}
+          <li key={"executionTime"}>Execution time:{executionTime}</li>
         </ul>
       </div>
     )
