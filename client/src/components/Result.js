@@ -45,103 +45,111 @@ class Result extends Component {
     } = this.state.result
 
     let executionTime = moment(scriptEnd).toDate() - moment(scriptStart).toDate()
+    let content
 
-    return (
-      <div>
-        <h2>Results</h2>
-
-        <div className="container">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Parameter</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>URL response code</td>
-                <td>{urlResponse}</td>
-              </tr>
-              <tr>
-                <td>Title</td>
-                <td>{title}</td>
-              </tr>
-              <tr>
-                <td>HTML version</td>
-                <td>{htmlVersion}</td>
-              </tr>
-              <tr>
-                <td>H1</td>
-                <td>{h1}</td>
-              </tr>
-              <tr>
-                <td>H2</td>
-                <td>{h2}</td>
-              </tr>
-              <tr>
-                <td>H3</td>
-                <td>{h3}</td>
-              </tr>
-              <tr>
-                <td>H4</td>
-                <td>{h4}</td>
-              </tr>
-              <tr>
-                <td>H5</td>
-                <td>{h5}</td>
-              </tr>
-              <tr>
-                <td>H6</td>
-                <td>{h6}</td>
-              </tr>
-              <tr>
-                <td>Execution time</td>
-                <td>{executionTime} ms</td>
-              </tr>
-            </tbody>
-          </Table>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Link</th>
-                <th>Response code</th>
-              </tr>
-            </thead>
-            <tbody>
-              {links &&
-                links.map((res, i) => (
-                  <tr key={i}>
-                    <th>{i}</th>
-                    <th>{res.url}</th>
-                    <th>{res.status}</th>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Picture</th>
-                <th>Size KB</th>
-              </tr>
-            </thead>
-            <tbody>
-              {images &&
-                images.map((res, i) => (
-                  <tr key={i}>
-                    <th>{i}</th>
-                    <th>{res.img}</th>
-                    <th>{res.size / 1000}</th>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
+    if (urlResponse === 200) {
+      content = (
+        <div>
+          <h2>Results</h2>
+          <div className="container">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>URL response code</td>
+                  <td>{urlResponse}</td>
+                </tr>
+                <tr>
+                  <td>Title</td>
+                  <td>{title}</td>
+                </tr>
+                <tr>
+                  <td>HTML version</td>
+                  <td>{htmlVersion}</td>
+                </tr>
+                <tr>
+                  <td>H1</td>
+                  <td>{h1}</td>
+                </tr>
+                <tr>
+                  <td>H2</td>
+                  <td>{h2}</td>
+                </tr>
+                <tr>
+                  <td>H3</td>
+                  <td>{h3}</td>
+                </tr>
+                <tr>
+                  <td>H4</td>
+                  <td>{h4}</td>
+                </tr>
+                <tr>
+                  <td>H5</td>
+                  <td>{h5}</td>
+                </tr>
+                <tr>
+                  <td>H6</td>
+                  <td>{h6}</td>
+                </tr>
+                <tr>
+                  <td>Execution time</td>
+                  <td>{executionTime} ms</td>
+                </tr>
+              </tbody>
+            </Table>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Link</th>
+                  <th>Response code</th>
+                </tr>
+              </thead>
+              <tbody>
+                {links &&
+                  links.map((res, i) => (
+                    <tr key={i}>
+                      <th>{i}</th>
+                      <th>{res.url}</th>
+                      <th>{res.status}</th>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Picture</th>
+                  <th>Size KB</th>
+                </tr>
+              </thead>
+              <tbody>
+                {images &&
+                  images.map((res, i) => (
+                    <tr key={i}>
+                      <th>{i}</th>
+                      <th>{res.img}</th>
+                      <th>{res.size / 1000}</th>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else if (urlResponse === "") {
+      content = <div>Please parse new URL</div>
+    } else {
+      content = <div>This link can't be parsed</div>
+    }
+
+    return <div>{content}</div>
   }
 }
 

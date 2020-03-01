@@ -10,7 +10,7 @@ const getPictures = require("../services/pictures")
 const getLinks = require("../services/links")
 
 let results = {
-  urlResponse: "-",
+  urlResponse: "",
   title: "-",
   htmlVersion: "-",
   h1: 0,
