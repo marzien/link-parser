@@ -135,7 +135,7 @@ class Result extends Component {
                 {links &&
                   links.map((res, i) => (
                     <tr key={i}>
-                      <th>{i}</th>
+                      <th>{i + 1}</th>
                       <th>{res.url}</th>
                       <th>{res.status}</th>
                     </tr>
@@ -154,7 +154,7 @@ class Result extends Component {
                 {images &&
                   images.map((res, i) => (
                     <tr key={i}>
-                      <th>{i}</th>
+                      <th>{i + 1}</th>
                       <th>{res.img}</th>
                       <th>{res.size / 1000}</th>
                     </tr>
