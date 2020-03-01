@@ -45,6 +45,19 @@ class Result extends Component {
     } = this.state.result
 
     let executionTime = moment(scriptEnd).toDate() - moment(scriptStart).toDate()
+
+    Object.size = function(obj) {
+      var size = 0,
+        key
+      for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++
+      }
+      return size
+    }
+
+    var linksCount = Object.size(links)
+    var imagesCount = Object.size(images)
+
     let content
 
     if (urlResponse === 200) {
@@ -95,6 +108,14 @@ class Result extends Component {
                 <tr>
                   <td>H6</td>
                   <td>{h6}</td>
+                </tr>
+                <tr>
+                  <td>Links count</td>
+                  <td>{linksCount}</td>
+                </tr>
+                <tr>
+                  <td>Images count</td>
+                  <td>{imagesCount}</td>
                 </tr>
                 <tr>
                   <td>Execution time</td>
