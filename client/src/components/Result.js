@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import "./Result.css"
 import moment from "moment"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Table } from "react-bootstrap"
 // import { imageSize } from "image-size"
 
 class Result extends Component {
@@ -47,33 +49,97 @@ class Result extends Component {
     return (
       <div>
         <h2>Results</h2>
-        <ul>
-          <li key={"urlResponse"}>URL responsecode: {urlResponse}</li>
-          <li key={"title"}>Title: {title}</li>
-          <li key={"htmlVersion"}>HTML version: {htmlVersion}</li>
-          <li key={"headings"}>
-            Headings: <div>H1-{h1}</div> <div>H2-{h2}</div> <div>H3-{h3}</div>{" "}
-            <div>H4-{h4}</div> <div>H5-{h5}</div> <div>H6-{h6}</div>
-          </li>
-          <li>
-            {images &&
-              images.map((res, i) => (
-                <div key={i}>
-                  {res.img}: {res.size}
-                </div>
-              ))}
-          </li>
-          <li>
-            Site links:
-            {links &&
-              links.map((res, i) => (
-                <div key={i}>
-                  {res.url}: {res.status}
-                </div>
-              ))}
-          </li>
-          <li key={"executionTime"}>Execution time:{executionTime}</li>
-        </ul>
+
+        <div className="container">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>URL response code</td>
+                <td>{urlResponse}</td>
+              </tr>
+              <tr>
+                <td>Title</td>
+                <td>{title}</td>
+              </tr>
+              <tr>
+                <td>HTML version</td>
+                <td>{htmlVersion}</td>
+              </tr>
+              <tr>
+                <td>H1</td>
+                <td>{h1}</td>
+              </tr>
+              <tr>
+                <td>H2</td>
+                <td>{h2}</td>
+              </tr>
+              <tr>
+                <td>H3</td>
+                <td>{h3}</td>
+              </tr>
+              <tr>
+                <td>H4</td>
+                <td>{h4}</td>
+              </tr>
+              <tr>
+                <td>H5</td>
+                <td>{h5}</td>
+              </tr>
+              <tr>
+                <td>H6</td>
+                <td>{h6}</td>
+              </tr>
+              <tr>
+                <td>Execution time</td>
+                <td>{executionTime} ms</td>
+              </tr>
+            </tbody>
+          </Table>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Link</th>
+                <th>Response code</th>
+              </tr>
+            </thead>
+            <tbody>
+              {links &&
+                links.map((res, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <th>{res.url}</th>
+                    <th>{res.status}</th>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Picture</th>
+                <th>Size KB</th>
+              </tr>
+            </thead>
+            <tbody>
+              {images &&
+                images.map((res, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <th>{res.img}</th>
+                    <th>{res.size / 1000}</th>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        </div>
       </div>
     )
   }
