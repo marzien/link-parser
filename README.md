@@ -26,6 +26,7 @@ Valid URL format:
 ```
 http://mariusdev.tech
 https://mariusdev.tech
+https://www.mariusdev.tech
 ```
 
 Not valid URL format:
