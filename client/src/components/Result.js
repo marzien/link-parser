@@ -128,6 +128,7 @@ class Result extends Component {
                 <tr>
                   <th>#</th>
                   <th>Link</th>
+                  <th>Type</th>
                   <th>Response code</th>
                 </tr>
               </thead>
@@ -137,6 +138,7 @@ class Result extends Component {
                     <tr key={i}>
                       <th>{i + 1}</th>
                       <th>{res.url}</th>
+                      <th>{/mariusdev.tech/.test(res.url) ? "Int" : "Ext"}</th>
                       <th>{res.status}</th>
                     </tr>
                   ))}
