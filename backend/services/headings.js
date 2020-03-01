@@ -6,7 +6,6 @@ module.exports = async function getHeadings(url) {
   const $ = cheerio.load(html.data)
 
   let data = []
-  // return $("title").text();
 
   let h1count = 0
   let h2count = 0
@@ -14,7 +13,7 @@ module.exports = async function getHeadings(url) {
   let h4count = 0
   let h5count = 0
   let h6count = 0
-  // Headings
+
   $("h1").each((i, el) => {
     h1count += 1
   })

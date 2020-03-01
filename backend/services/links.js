@@ -31,7 +31,6 @@ module.exports = async function getLinks(siteUrl) {
       return data
     })
     .catch((err) => `Error: can't fetch page links {err}`)
-  // console.log("await linkArr", await linkArr)
 
   return await linkArr
 }

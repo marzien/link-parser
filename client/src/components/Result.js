@@ -3,7 +3,6 @@ import "./Result.css"
 import moment from "moment"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Table } from "react-bootstrap"
-// import { imageSize } from "image-size"
 
 class Result extends Component {
   constructor(props) {
