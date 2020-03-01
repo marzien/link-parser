@@ -21,16 +21,14 @@ npm run client
 
 ## Limitations
 
-Given URL link first should valid by this regex expresion:
-
-Valid URL:
+Valid URL format:
 
 ```
 http://mariusdev.tech
 https://mariusdev.tech
 ```
 
-Not valid URL:
+Not valid URL format:
 
 ```
 mariusdev.tech
