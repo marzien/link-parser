@@ -36,7 +36,7 @@ mariusdev.tech
 www.mariusdev.tech
 ```
 
-Link type detector working only with mariusdev.tech domain.
+Don't work with SAP.
 
 ## Assumption
 

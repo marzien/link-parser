@@ -57,6 +57,11 @@ class Result extends Component {
     var linksCount = Object.size(links)
     var imagesCount = Object.size(images)
 
+    let intExtCheking = (currentUrl) => {
+      var re = new RegExp(this.props.url, "i")
+      return re.test(currentUrl)
+    }
+
     let content
 
     if (urlResponse === 200) {
@@ -137,7 +142,7 @@ class Result extends Component {
                     <tr key={i}>
                       <th>{i + 1}</th>
                       <th>{res.url}</th>
-                      <th>{/mariusdev.tech/.test(res.url) ? "Int" : "Ext"}</th>
+                      <th>{intExtCheking(res.url) ? "Int" : "Ext"}</th>
                       <th>{res.status}</th>
                     </tr>
                   ))}
