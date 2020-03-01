@@ -62,6 +62,15 @@ class Result extends Component {
       return re.test(currentUrl)
     }
 
+    let intExtCounter = () => {
+      let intCount = 0
+      let extCount = 0
+      links.map((res, i) => {
+        intExtCheking(res.url) ? intCount++ : extCount++
+      })
+      return { intCount, extCount }
+    }
+
     let content
 
     if (urlResponse === 200) {
@@ -115,7 +124,10 @@ class Result extends Component {
                 </tr>
                 <tr>
                   <td>Links count</td>
-                  <td>{linksCount}</td>
+                  <td>
+                    {linksCount}: Int({intExtCounter().intCount}) Ext(
+                    {intExtCounter().extCount})
+                  </td>
                 </tr>
                 <tr>
                   <td>Images count</td>
