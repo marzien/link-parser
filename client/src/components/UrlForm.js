@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import axios from "axios"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Button, Form } from "react-bootstrap"
 import "./UrlForm.css"
 
 class UrlForm extends Component {
@@ -30,15 +32,18 @@ class UrlForm extends Component {
     return (
       <form className="UrlLinkForm" onSubmit={this.handleSubmit}>
         <label htmlFor="url">Your URL link:</label>
-        <input
+        <Form.Control
           type="text"
-          placeholder="http://..."
+          placeholder="https://..."
           id="url"
           name="url"
           value={this.state.url}
           onChange={this.handleChange}
         />
-        <button>Parse!</button>
+        <br></br>
+        <Button type="submit" variant="info">
+          Parse!
+        </Button>
       </form>
     )
   }
