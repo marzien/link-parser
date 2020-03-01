@@ -59,7 +59,7 @@ class Result extends Component {
             {images &&
               images.map((res, i) => (
                 <div key={i}>
-                  {res.img}: {res.imgSizePixel}
+                  {res.img}: {res.size}
                 </div>
               ))}
           </li>
