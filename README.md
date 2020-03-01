@@ -1,6 +1,6 @@
 ## Quick Start
 
-``` bash
+```bash
 # Install dependencies for server
 npm install
 
@@ -18,3 +18,23 @@ npm run client
 
 # Server runs on http://localhost:5000 and client on http://localhost:3000
 ```
+
+## Limitations
+
+Given URL link first should valid by this regex expresion:
+
+Valid URL:
+
+```
+http://mariusdev.tech
+https://mariusdev.tech
+```
+
+Not valid URL:
+
+```
+mariusdev.tech
+www.mariusdev.tech
+```
+
+Link type detector working only with mariusdev.tech domain.
