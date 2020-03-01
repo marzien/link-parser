@@ -36,3 +36,7 @@ www.mariusdev.tech
 ```
 
 Link type detector working only with mariusdev.tech domain.
+
+## Assumption
+
+Link is active when request return code `200`.
