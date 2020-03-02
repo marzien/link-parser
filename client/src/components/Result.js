@@ -81,6 +81,17 @@ class Result extends Component {
       return brokenLinks
     }
 
+    let maxImage = () => {
+      var res = Math.max.apply(
+        Math,
+        images.map((image) => image.size)
+      )
+      var obj = images.find((image) => {
+        return image.size == res
+      })
+      return obj.img
+    }
+
     let content
 
     if (urlResponse === 200) {
@@ -123,7 +134,9 @@ class Result extends Component {
                 </tr>
                 <tr>
                   <td>Images count</td>
-                  <td>{imagesCount}</td>
+                  <td>
+                    {imagesCount} with larges: {maxImage()}
+                  </td>
                 </tr>
                 <tr>
                   <td>Execution time</td>
