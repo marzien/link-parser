@@ -109,28 +109,10 @@ class Result extends Component {
                   <td>{htmlVersion}</td>
                 </tr>
                 <tr>
-                  <td>H1</td>
-                  <td>{h1}</td>
-                </tr>
-                <tr>
-                  <td>H2</td>
-                  <td>{h2}</td>
-                </tr>
-                <tr>
-                  <td>H3</td>
-                  <td>{h3}</td>
-                </tr>
-                <tr>
-                  <td>H4</td>
-                  <td>{h4}</td>
-                </tr>
-                <tr>
-                  <td>H5</td>
-                  <td>{h5}</td>
-                </tr>
-                <tr>
-                  <td>H6</td>
-                  <td>{h6}</td>
+                  <td>Headings</td>
+                  <td>
+                    H1:{h1} H2:{h2} H3:{h3} H4:{h4} H5:{h5} H6:{h6}
+                  </td>
                 </tr>
                 <tr>
                   <td>Links count</td>
