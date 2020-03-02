@@ -71,6 +71,16 @@ class Result extends Component {
       return { intCount, extCount }
     }
 
+    let brokenLinkCounter = () => {
+      let brokenLinks = 0
+      links.map((res, i) => {
+        if (res.status !== 200) {
+          brokenLinks++
+        }
+      })
+      return brokenLinks
+    }
+
     let content
 
     if (urlResponse === 200) {
@@ -126,7 +136,7 @@ class Result extends Component {
                   <td>Links count</td>
                   <td>
                     {linksCount}: Int({intExtCounter().intCount}) Ext(
-                    {intExtCounter().extCount})
+                    {intExtCounter().extCount}) Broken({brokenLinkCounter()})
                   </td>
                 </tr>
                 <tr>
