@@ -131,6 +131,7 @@ class Result extends Component {
                 </tr>
               </tbody>
             </Table>
+            <h2>Data</h2>
             <Table striped bordered hover>
               <thead>
                 <tr>
