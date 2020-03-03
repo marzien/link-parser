@@ -65,6 +65,7 @@ class Result extends Component {
     let intExtCounter = () => {
       let intCount = 0
       let extCount = 0
+      // eslint-disable-next-line
       links.map((res, i) => {
         intExtCheking(res.url) ? intCount++ : extCount++
       })
@@ -73,6 +74,7 @@ class Result extends Component {
 
     let brokenLinkCounter = () => {
       let brokenLinks = 0
+      // eslint-disable-next-line
       links.map((res, i) => {
         if (res.status !== 200) {
           brokenLinks++
@@ -87,7 +89,7 @@ class Result extends Component {
         images.map((image) => image.size)
       )
       var obj = images.find((image) => {
-        return image.size == res
+        return image.size === res
       })
       return obj.img
     }
